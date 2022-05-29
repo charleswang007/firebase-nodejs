@@ -1,12 +1,38 @@
 var express = require('express');
 var router = express.Router();
 
+var Product = require("../models/product");//Product 建構式
 /* GET home page. */
 
  router.get(['/','index'], function(req, res, next) {
   res.render('index', { title: '韋恩購物網' });
  });
- router.get('/demo', function(req, res, next) {
+ router.get('/demo', async function(req, res, next) {
+   // let product = new Product({ //建立一個 產品實體
+   //    id: 123,
+   //    name:"測試產品"
+   // });
+
+   //let data = await product.save(); //{id:456,name:"other"}
+   //console.log(product);
+   //console.log(product.version);
+   //console.log(Product.prototype);
+   //console.log(product.productClass);
+   //product.demo();
+   product = new Product({});
+   try{
+      // let result = await product.add({
+      //    name:"產品1",
+      //    price:100,
+      // });
+      // if(result.err) console.log("代表有錯")
+      // console.log(result.id,"result")
+      let result = await product.delete("H2jzYrpskxH686YD0jPe");
+      console.log("product deleted successfully")
+    }catch(err){
+      //這邊是呼叫 firestore 失敗
+      console.log(err,"err")  
+    }
   res.render('demo', { title: 'demo' });
  });
  router.get('/news', function(req, res, next) {

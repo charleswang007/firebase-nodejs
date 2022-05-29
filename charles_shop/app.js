@@ -24,11 +24,20 @@ app.use(minifyHTML({
   }
 }));
 
+//firebase-admin
+var admin = require("firebase-admin");
+var serviceAccount = require("./serviceAccountKey.json");
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)
+});
+global.admin = admin; //設定全域引用
+global.db = admin.firestore(); //設定全域引用
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use(logger('dev'));
+//app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
