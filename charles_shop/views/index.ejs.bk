@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <form action="http://localhost:6886/order" method="post">
+      　姓名：<input type="text" name="UserName"><br>
+      　內容：<textarea name="Content"></textarea><br>
+      　<input type="submit" value="送出表單">
+      </form>      
+    <!-- <image src='/images/dog.png' alt=''> -->
+    <p>Welcome to <%= title %></p>
+  </body>
+</html>

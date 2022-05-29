@@ -1,0 +1,21 @@
+{
+  "name": "charles-shop",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "cross-env PORT=6886 nodemon ./bin/www",
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "cross-env": "^7.0.3",
+    "debug": "~2.6.9",
+    "ejs": "~2.6.1",
+    "express": "~4.16.1",
+    "express-minify-html": "^0.12.0",
+    "http-errors": "~1.6.3",
+    "morgan": "~1.9.1",
+    "serve-favicon": "^2.5.0",
+    "uikit": "^3.14.1"
+  }
+}
