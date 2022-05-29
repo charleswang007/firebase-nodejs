@@ -5,4 +5,4 @@ course note from https://wayne1894.com/courses/firebaseNode
 `npm install`
 `npm run dev`
 
-![screenshot](charles_shop.pngs)
+![screenshot](charles_shop.png)
