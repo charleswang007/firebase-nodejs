@@ -19,7 +19,10 @@ var Product = require("../models/product");//Product 建構式
    //console.log(Product.prototype);
    //console.log(product.productClass);
    //product.demo();
-   product = new Product({});
+   product = new Product({
+    name:"終極產品",
+    price:100,
+   });
    try{
       // let result = await product.add({
       //    name:"產品1",
@@ -27,8 +30,10 @@ var Product = require("../models/product");//Product 建構式
       // });
       // if(result.err) console.log("代表有錯")
       // console.log(result.id,"result")
-      let result = await product.delete("H2jzYrpskxH686YD0jPe");
-      console.log("product deleted successfully")
+      // let result = await product.delete("H2jzYrpskxH686YD0jPe");
+      // console.log("product deleted successfully")
+      let data = await product.updateList()
+      console.log("data: ", data);
     }catch(err){
       //這邊是呼叫 firestore 失敗
       console.log(err,"err")  

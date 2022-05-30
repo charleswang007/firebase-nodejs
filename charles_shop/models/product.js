@@ -4,6 +4,27 @@ let Product = function(data){
     this.demo = () => {
       console.log("這是方法", this)
     }
+    this.getProduct = async () => {
+        let result = await db.collection("PRODUCT")
+            .orderBy("createdAt", "asc")
+            .get();
+        let data = [];
+        result.forEach((doc)=>{ 
+        //這邊可以做篩選有適合的資料才做 push
+        let seconds = doc.data().createdAt.seconds
+        console.log("id: ", doc.id)
+        console.log("seconds: ", timestampToDate(seconds))
+        data.push({
+            ...doc.data(),
+            id: doc.id
+        })
+        })
+        return data    
+    }
+    this.getProductClassMain = async() => {
+        let result = await db.collection("PAGE").doc("productClassMain").get();
+        return result.data();
+    }
     this.add = async (add_data) => {
         let data = new_data || add_data;
         // return {  //回傳 err 代表某些情境失敗無法新增
@@ -15,6 +36,20 @@ let Product = function(data){
             createdAt: admin.firestore.FieldValue.serverTimestamp() 
         })
     }
+    this.updateList = async () => {
+        let result = await db.collection("PRODUCT")
+        //.where("name", "==", "我是產品2")
+        .get()
+        // for(let i=0;i<result.docs.length;i++){
+        //     await result.docs[i].ref.update({b:111})
+        // }
+        var batch = db.batch();
+        result.forEach((doc)=>{
+            batch.update(doc.ref,{a:222});
+        })
+        batch_result = await batch.commit()
+        return "update batch successfully"
+    }
     this.update = (id, update_data) => {
         return db.collection("PRODUCT").doc(id).set({
             ...update_data,
@@ -25,6 +60,20 @@ let Product = function(data){
         return db.collection("PRODUCT").doc(id).delete();
     }
 }
+
+function timestampToDate(timestamp){
+    var date = new Date(timestamp * 1000);
+      var mm = date.getMonth() + 1; 
+      var dd = date.getDate();
+      var hh = date.getHours()
+      var nn = date.getMinutes();
+      hh = (hh>9 ? '' : '0') + hh
+      nn = (nn>9 ? '' : '0') + nn
+      return [date.getFullYear(),
+            (mm>9 ? '' : '0') + mm,
+            (dd>9 ? '' : '0') + dd,
+           ].join('/') + " " +hh+":"+nn ;
+  } 
 
 Product.prototype  = { //使用原型屬性
     product: { //產品資料表結構
