@@ -6,3 +6,4 @@ course note from https://wayne1894.com/courses/firebaseNode
     npm run dev
 
 ![screenshot](charles_shop.png)
+![screenshot](registration.png)
