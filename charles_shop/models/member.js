@@ -1,5 +1,5 @@
 var axios = require('axios');
-let firebase_api_key = "AIzaSyCqCrz7lO1HMwVSDNLwgDNBK17gDU9y9t0";
+let firebase_api_key = "";
 
 let Member = function(data){
     this.version = "v1.0"; //this 宣告的變數或物件會曝露出去
