@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var Product = require("../models/product");//Product 建構式
+var Member = require("../models/member");//Member 建構式
 /* GET home page. */
 
  router.get(['/','index'], function(req, res, next) {
@@ -24,15 +25,14 @@ var Product = require("../models/product");//Product 建構式
     price:100,
    });
    try{
-      // let result = await product.add({
-      //    name:"產品1",
-      //    price:100,
-      // });
+      // let result = await product.add();
       // if(result.err) console.log("代表有錯")
       // console.log(result.id,"result")
       // let result = await product.delete("H2jzYrpskxH686YD0jPe");
       // console.log("product deleted successfully")
-      let data = await product.updateList()
+      // let data = await product.updateList()
+      let member = new Member();
+      let data = await member.add();
       console.log("data: ", data);
     }catch(err){
       //這邊是呼叫 firestore 失敗

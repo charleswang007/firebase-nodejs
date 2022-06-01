@@ -8,6 +8,7 @@ var minifyHTML = require('express-minify-html');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var memberRouter = require('./routes/member');
 
 var app = express();
 
@@ -52,6 +53,7 @@ app.use("/*",((res, req, next) => {  //所有請求都會經過
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/api/member', memberRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

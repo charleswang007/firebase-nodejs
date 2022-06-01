@@ -218,30 +218,49 @@
             </ul>
           </nav>
         </div>
-        <div class="uk-navbar-right"><a class="uk-navbar-toggle tm-navbar-button" href="#" uk-search-icon></a>
-          <div class="uk-navbar-dropdown uk-padding-small uk-margin-remove" uk-drop="mode: click;cls-drop: uk-navbar-dropdown;boundary: .tm-navbar-container;boundary-align: true;pos: bottom-justify;flip: x">
-            <div class="uk-container">
-              <div class="uk-grid-small uk-flex-middle" uk-grid>
-                <div class="uk-width-expand">
-                  <form class="uk-search uk-search-navbar uk-width-1-1"><input class="uk-search-input" type="search" placeholder="Search…" autofocus></form>
+        <div class="uk-navbar-right">
+          <%if(1==-1){%>
+            <a class="uk-navbar-toggle tm-navbar-button" href="#" uk-search-icon></a>
+            <div class="uk-navbar-dropdown uk-padding-small uk-margin-remove" uk-drop="mode: click;cls-drop: uk-navbar-dropdown;boundary: .tm-navbar-container;boundary-align: true;pos: bottom-justify;flip: x">
+              <div class="uk-container">
+                <div class="uk-grid-small uk-flex-middle" uk-grid>
+                  <div class="uk-width-expand">
+                    <form class="uk-search uk-search-navbar uk-width-1-1"><input class="uk-search-input" type="search" placeholder="Search…" autofocus></form>
+                  </div>
+                  <div class="uk-width-auto"><a class="uk-navbar-dropdown-close" href="#" uk-close></a></div>
                 </div>
-                <div class="uk-width-auto"><a class="uk-navbar-dropdown-close" href="#" uk-close></a></div>
               </div>
-            </div>
-          </div><a class="uk-navbar-item uk-link-muted uk-visible@m tm-navbar-button" href="compare"><span uk-icon="copy"></span><span class="uk-badge">3</span></a><a class="uk-navbar-item uk-link-muted tm-navbar-button" href="account" uk-icon="user"></a>
-          <div class="uk-padding-small uk-margin-remove" uk-dropdown="pos: bottom-right; offset: -10; delay-hide: 200;" style="min-width: 150px;">
-            <ul class="uk-nav uk-dropdown-nav">
-              <li><a href="account">Orders
-                  <span>(2)</span></a></li>
-              <li><a href="favorites">Favorites
-                  <span>(3)</span></a></li>
-              <li><a href="personal">Personal</a></li>
-              <li><a href="settings">Settings</a></li>
-              <li class="uk-nav-divider"></li>
-              <li><a href="#">Log out</a></li>
-            </ul>
-          </div><a class="uk-navbar-item uk-link-muted tm-navbar-button" href="cart" uk-toggle="target: #cart-offcanvas" onclick="return false"><span uk-icon="cart"></span><span class="uk-badge">2</span></a>
+            </div><a class="uk-navbar-item uk-link-muted uk-visible@m tm-navbar-button" href="compare"><span uk-icon="copy"></span><span class="uk-badge">3</span></a><a class="uk-navbar-item uk-link-muted tm-navbar-button" href="account" uk-icon="user"></a>
+            <div class="uk-padding-small uk-margin-remove" uk-dropdown="pos: bottom-right; offset: -10; delay-hide: 200;" style="min-width: 150px;">
+              <ul class="uk-nav uk-dropdown-nav">
+                <li><a href="account">Orders
+                    <span>(2)</span></a></li>
+                <li><a href="favorites">Favorites
+                    <span>(3)</span></a></li>
+                <li><a href="personal">Personal</a></li>
+                <li><a href="settings">Settings</a></li>
+                <li class="uk-nav-divider"></li>
+                <li><a href="#">Log out</a></li>
+              </ul>
+            </div><a class="uk-navbar-item uk-link-muted tm-navbar-button" href="cart" uk-toggle="target: #cart-offcanvas" onclick="return false"><span uk-icon="cart"></span><span class="uk-badge">2</span></a>
+          <%}else{%>
+            <a class="uk-navbar-item uk-link-muted tm-navbar-button" uk-toggle="target: #cart-offcanvas" onclick="return false">
+              <span uk-icon="cart"></span>
+              <span class="uk-badge">1</span>
+            </a>
+            <button onclick="login_modal()" style="margin-left:14px;margin-right:7px" class="uk-button uk-button-primary uk-button-small">
+              登入 / 註冊
+            </button>
+          <%}%>
         </div>
       </div>
     </div>
 </header>
+<%include login-modal%>
+
+<script>
+  function login_modal(){
+    UIkit.modal("#modal-center").show();
+  }
+ </script>
+ 
