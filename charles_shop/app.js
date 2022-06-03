@@ -5,10 +5,12 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const favicon = require('serve-favicon');
 var minifyHTML = require('express-minify-html');
+var session = require('express-session');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var memberRouter = require('./routes/member');
+var auth = require('./middleware/auth');
 
 var app = express();
 
@@ -28,9 +30,24 @@ app.use(minifyHTML({
 //firebase-admin
 var admin = require("firebase-admin");
 var serviceAccount = require("./serviceAccountKey.json");
-admin.initializeApp({
+const firebase = admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
 });
+const database = firebase.firestore();
+const FirestoreStore = require("firestore-store")(session);
+
+app.use(session({
+  store: new FirestoreStore({
+    database,
+  }),
+  secret: 'charles007_shop', //輸入自己的名稱
+  resave: true, //重複儲存 session
+  saveUninitialized: false,//避免一開始就建立使用者 session (可以節省空間)
+  cookie: {
+    httpOnly: false
+  },
+}))
+
 global.admin = admin; //設定全域引用
 global.db = admin.firestore(); //設定全域引用
 
@@ -45,11 +62,17 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(__dirname + '/public/favicon.ico'));
 
-app.use("/*",((res, req, next) => {  //所有請求都會經過
+app.use("/*",((req, res, next) => {  //所有請求都會經過
   //處理
-  console.log("1")
+  console.log(req.sessionID)
+  console.log(req.session.uid,"req.session")
+  res.locals.session = req.session; // 將session 保存在 res 給 ejs 使用
+  res.locals.session = res.locals.session || {}; //防止都沒資料
+  console.log("in app.js")
   next()
 }));
+
+app.use(['/account','/favorites','/personal','/settings'], auth);
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

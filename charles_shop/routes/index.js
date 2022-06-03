@@ -91,14 +91,28 @@ var Member = require("../models/member");//Member 建構式
  router.get('/news', function(req, res, next) {
   res.render('news', { title: '最新消息' });
  });
- router.get('/personal', function(req, res, next) {
-  res.render('personal', { title: '個人資訊' });
+ router.get('/personal', async function(req, res, next) {
+  //取得使用者個人的資料
+  let member = new Member();
+  let userRecord = {}
+  try{
+    userRecord = await member.getMember(res.locals.session.uid);
+    console.log(userRecord,"userRecord")
+  }catch(err){
+    console.log(err,"err")
+  }
+  
+  res.render('personal', { title: '個人資訊',userRecord});
+ });
+ router.get('/product', function(req, res, next) {
+  res.render('product', { title: '產品頁' });
  });
  router.get('/product', function(req, res, next) {
   res.render('product', { title: '產品頁' });
  });
  router.get('/settings', function(req, res, next) {
-  res.render('settings', { title: '設定' });
+  var err = req.query.err;
+  res.render('settings', { title: '設定', err });
  });
  router.get('/article', function(req, res, next) {
     res.render('article', { title: '文章' });

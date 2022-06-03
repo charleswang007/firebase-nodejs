@@ -50,16 +50,16 @@
                         <h1 class="uk-h2">Settings</h1>
                       </header>
                       <div class="uk-card-body">
-                        <form class="uk-form-stacked">
+                        <form action="/api/member/update" method="post" class="uk-form-stacked">
                           <div class="uk-grid-medium uk-child-width-1-1" uk-grid>
                             <fieldset class="uk-fieldset">
                               <legend class="uk-h4">Email</legend>
                               <div class="uk-grid-small uk-child-width-1-1" uk-grid>
                                 <div><label>
-                                    <div class="uk-form-label">Current Email</div><input class="uk-input uk-form-width-large" type="email" value="example@example.com" disabled>
+                                  <div class="uk-form-label">Current Email</div><input class="uk-input uk-form-width-large" type="email" value="<%=session.email%>" disabled>
                                   </label></div>
                                 <div><label>
-                                    <div class="uk-form-label">New Email</div><input class="uk-input uk-form-width-large" type="email">
+                                  <div class="uk-form-label">New Email</div><input class="uk-input uk-form-width-large" type="email" name="email">
                                   </label></div>
                                 <div><button class="uk-button uk-button-primary">update email</button></div>
                               </div>
@@ -68,11 +68,12 @@
                               <legend class="uk-h4">Password</legend>
                               <div class="uk-grid-small uk-child-width-1-1" uk-grid>
                                 <div><label>
-                                    <div class="uk-form-label">Current Password</div><input class="uk-input uk-form-width-large" type="password">
+                                    <div class="uk-form-label">Current Password</div><input class="uk-input uk-form-width-large" type="password" name="currentPassword">
                                   </label></div>
                                 <div><label>
-                                    <div class="uk-form-label">New Password</div><input class="uk-input uk-form-width-large" type="password">
+                                    <div class="uk-form-label">New Password</div><input class="uk-input uk-form-width-large" type="password" name="password">
                                   </label></div>
+                                  <%if(err){%> 我有錯誤 <%}%>
                                 <div><label>
                                     <div class="uk-form-label">Confirm Password</div><input class="uk-input uk-form-width-large" type="password">
                                   </label></div>
