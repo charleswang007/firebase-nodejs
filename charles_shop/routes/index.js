@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
+var auth = require('../middleware/auth');
+
 var Product = require("../models/product");//Product 建構式
 var Member = require("../models/member");//Member 建構式
 /* GET home page. */
@@ -49,7 +51,7 @@ var Member = require("../models/member");//Member 建構式
  router.get('/account', function(req, res, next) {
   res.render('account', { title: '帳號設定' });
  });
- router.get('/articlse', function(req, res, next) {
+ router.get('/article', function(req, res, next) {
   res.render('article', { title: '文章' });
  });
  router.get('/blog', function(req, res, next) {
@@ -110,12 +112,9 @@ var Member = require("../models/member");//Member 建構式
  router.get('/product', function(req, res, next) {
   res.render('product', { title: '產品頁' });
  });
- router.get('/settings', function(req, res, next) {
+ router.get('/settings', auth, function(req, res, next) {
   var err = req.query.err;
   res.render('settings', { title: '設定', err });
- });
- router.get('/article', function(req, res, next) {
-    res.render('article', { title: '文章' });
  });
 
 module.exports = router;

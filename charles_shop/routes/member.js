@@ -1,5 +1,8 @@
 var express = require('express');
 var router = express.Router();
+
+var auth = require('../middleware/auth')
+
 var Member = require("../models/member"); //Member 建構式
 
 router.post('/login', async function(req, res, next) {
@@ -14,7 +17,7 @@ router.post('/login', async function(req, res, next) {
       success:true,
       idToken: result.data.idToken,
       refreshToken : result.data.refreshToken,
-    })
+    });
   }catch(err){
     return res.status(500).json({ err: true, message : err.response.data.error})
   }
@@ -22,12 +25,12 @@ router.post('/login', async function(req, res, next) {
 
 router.get("/logout", async function(req, res, next) {
   req.session.destroy((err) => {
-    res.redirect('/') 
+		res.redirect('/')
     //res.json({success: true}) //呼叫 api 用
   });
 })
 
-router.post("/update", async function(req, res, next) {
+router.post("/update", auth, async function(req, res, next) {
   let data = req.body;
   let member = new Member();
   //檢查當前密碼是否為現在會員的密碼
