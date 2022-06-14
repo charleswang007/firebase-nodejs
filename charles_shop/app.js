@@ -8,7 +8,7 @@ var minifyHTML = require('express-minify-html');
 var session = require('express-session');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var orderRouter = require('./routes/order');
 var memberRouter = require('./routes/member');
 var auth = require('./middleware/auth');
 
@@ -63,6 +63,23 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(__dirname + '/public/favicon.ico'));
 
 app.use("/*",((req, res, next) => {  //所有請求都會經過
+  //處理session
+  let cart = req.session.cart || [];
+  if(req.originalUrl == "/addCart"){
+    let product = JSON.parse(req.body.data);//產品資料
+    let order_number = req.body.number;
+    //先移除相同 id 的產品
+    cart = cart.filter(item => item.id != product.id);
+    cart.push({//存入商品進購物車
+      ...product, //偷懶作法，我把整個產品資訊都存進去了，實務上只存需要的資訊(例如 id)
+      order_number: order_number //數量
+    })
+  }
+  if(req.originalUrl.indexOf("/removeCart")>-1){
+    let id = req.query.id; //產品id
+    cart = cart.filter(item => item.id != id);
+  }
+  req.session.cart = cart;
   //處理
   console.log(req.sessionID)
   console.log(req.session.uid,"req.session")
@@ -75,7 +92,7 @@ app.use("/*",((req, res, next) => {  //所有請求都會經過
 app.use(['/account','/favorites','/personal','/settings'], auth);
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/order', orderRouter);
 app.use('/api/member', memberRouter);
 
 // catch 404 and forward to error handler

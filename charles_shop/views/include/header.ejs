@@ -244,11 +244,11 @@
                 <li class="uk-nav-divider"></li>
                 <li><a href="/api/member/logout">Log out</a></li>
               </ul>
-            </div><a class="uk-navbar-item uk-link-muted tm-navbar-button" href="cart" uk-toggle="target: #cart-offcanvas" onclick="return false"><span uk-icon="cart"></span><span class="uk-badge">2</span></a>
+            </div><a class="uk-navbar-item uk-link-muted tm-navbar-button" href="cart" uk-toggle="target: #cart-offcanvas" onclick="return false"><span uk-icon="cart"></span><%if(session.cart.length){%><span class="uk-badge"><%=session.cart.length%></span><%}%></a>
           <%}else{%>
             <a class="uk-navbar-item uk-link-muted tm-navbar-button" uk-toggle="target: #cart-offcanvas" onclick="return false">
               <span uk-icon="cart"></span>
-              <span class="uk-badge">1</span>
+              <%if(session.cart.length){%><span class="uk-badge"><%=session.cart.length%></span><%}%>
             </a>
             <button onclick="login_modal()" style="margin-left:14px;margin-right:7px" class="uk-button uk-button-primary uk-button-small">
               登入 / 註冊

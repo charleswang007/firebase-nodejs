@@ -138,7 +138,7 @@
                                         <div>
                                           <div class="uk-grid-small" uk-grid>
                                             <div><a onclick="increment(-1, 'product-1')" uk-icon="icon: minus; ratio: .75"></a><input class="uk-input tm-quantity-input" id="product-1" type="text" maxlength="3" value="1" /><a onclick="increment(+1, 'product-1')" uk-icon="icon: plus; ratio: .75"></a></div>
-                                            <div><button class="uk-button uk-button-primary tm-product-add-button tm-shine js-add-to-cart">add to cart</button></div>
+                                            <div><button onclick="add_cart()" class="uk-button uk-button-primary tm-product-add-button tm-shine">add to cart</button></div>
                                             <div class="uk-width-auto uk-width-expand@s uk-flex uk-flex-middle uk-text-meta"><a class="uk-margin-small-right js-add-to js-add-to-favorites tm-action-button-active js-added-to" uk-tooltip="Add to favorites"><span uk-icon="heart"></span></a><a class="js-add-to js-add-to-compare tm-action-button-active js-added-to" uk-tooltip="Add to compare"><span uk-icon="copy"></span></a></div>
                                           </div>
                                         </div>
@@ -1209,6 +1209,39 @@
            <%include include/cart-offcanvas%>
        </div>
        <%include include/scripts%>
+       <script>
+        //產品資訊
+        let product = { //產品資料表結構
+          // "id": "3CeuByGGxqvycrE5hjgF",
+          "id": "SLd7FFrOJFgmshgdvr3i",
+          "name":"我是第二項產品",  //產品名稱
+          "productClassMain":"",  //主分類 id
+          "productClass":"",  //次分類 id
+          "img":"http://localhost:6886/images/products/1/1-large.jpg", //產品圖示
+          "p_img":"", //產品輪播圖
+          "money": 500, //訂價
+          "price": 0, //目前價錢
+          "star" : 5, //評價星號
+          "content": "", // 產品介紹
+          "keyWord": "", //產品關鍵字
+          "inventory": 0, //產品庫存
+          "sort":0, //排序
+          "open": true, //是否上架
+          "_tag":[],  //產品標籤
+          "updateAt": "", //產品更新時間
+          "createdAt": "" //建立時間
+        }
+        function add_cart(){
+          alert("in add_cart()")
+          $.post("/addCart", {
+            data : JSON.stringify(product),
+            number: $("#product-1").val(),
+          },function(data){
+            alert("已經加入購物車")
+            location.reload();
+          })
+        }
+       </script>
    </body>
 </html>
 

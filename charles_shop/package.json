@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "cross-env PORT=6886 nodemon ./bin/www",
+    "dev": "cross-env NODE_ENV=dev PORT=6886 nodemon ./bin/www",
     "start": "node ./bin/www"
   },
   "dependencies": {
@@ -19,6 +19,7 @@
     "firestore-store": "^2.0.2",
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
+    "order-id": "^2.1.2",
     "serve-favicon": "^2.5.0",
     "uikit": "^3.14.1"
   }
