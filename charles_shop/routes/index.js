@@ -7,7 +7,7 @@ var Product = require("../models/product");//Product 建構式
 var Member = require("../models/member");//Member 建構式
 /* GET home page. */
 
- router.get(['/','index'], function(req, res, next) {
+ router.get(['/','/index'], function(req, res, next) {
   res.render('index', { title: '韋恩購物網' });
  });
  router.get('/demo', async function(req, res, next) {
