@@ -4,19 +4,11 @@ var Order = require("../models/order"); // Order 建構式
 
 const crypto = require('crypto');
 
-let env = {  //環境變數 (dev)
-  source: 2, //綠界1 藍新2
-  web_url: "http://localhost:6886/",//目前網址
-  firebase_functions_doman: "https://asia-east1-專案名稱.cloudfunctions.net",//付款回傳程式網址(使用 firebase functions)
-  _MerchantID : "",//藍新
-  _HashKey : "",//藍新
-  _HashIV : "",//藍新
-  action: "https://ccore.newebpay.com/MPG/mpg_gateway",//藍新串接網址
-  MerchantID : "",//綠界
-  HashKey : "",//綠界
-  HashIV : "",//綠界
-  OperationMode : "Test",//綠界
+const pay_env = require('../firebase/functions/pay.env');
+const env = {
+  ...pay_env(process.env.NODE_ENV, 2)
 }
+
 if(process.env.NODE_ENV != "dev"){ //填寫正式環境的env
   env = {
     action: "https://core.newebpay.com/MPG/mpg_gateway"
@@ -57,7 +49,7 @@ router.post('/', async function(req, res, next) {
     ItemDesc: itemName, // 產品名稱
     Email: email, // 付款人電子信箱
     ReturnURL: env.web_url + "/order/return", // 支付完成返回商店網址(post)
-    NotifyURL: env.firebase_functions_doman + "/payReturnSuccessNeweb", // 支付通知網址/每期授權結果通知
+    NotifyURL: env.firebase_functions, // 支付通知網址/每期授權結果通知
     ClientBackURL: env.web_url + "/home?pay=2" // 支付取消返回商店網址
   });
   var parameter = `HashKey=${env._HashKey}&${aes256}&HashIV=${env._HashIV}`;
