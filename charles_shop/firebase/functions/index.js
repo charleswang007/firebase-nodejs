@@ -37,7 +37,7 @@ exports.payReturnSuccessNewebDev = functions.runWith(runtimeOpts).https.onReques
   return payReturnSuccess(req, res, env);
 });
 
-function payReturnSuccess(req,res,env){
+async function payReturnSuccess(req,res,env){
   //console.log(JSON.stringify(req.body) ,"JSON.stringify(req.body)")
   const data = JSON.parse(create_mpg_aes_decrypt(req.body.TradeInfo,env._HashKey,env._HashIV));
   var MerchantOrderNo = data["Result"]["MerchantOrderNo"];
