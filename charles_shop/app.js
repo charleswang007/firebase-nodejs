@@ -61,6 +61,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use("/returnNeweb", (req,res) =>{
+  res.redirect("/?pay=" + req.query.pay)
+})
 
 app.use("/*",((req, res, next) => {  //所有請求都會經過
   //處理session

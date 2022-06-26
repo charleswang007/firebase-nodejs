@@ -37,6 +37,7 @@ router.post('/', async function(req, res, next) {
     ...data
   });
 
+  // 4000-2211-1111-1111 信用卡測試卡號
   var aes256 = create_mpg_aes_encrypt({
     MerchantID: env._MerchantID, // 商店代號
     RespondType: "JSON", // 回傳格式
@@ -48,7 +49,7 @@ router.post('/', async function(req, res, next) {
     Amt: Number(total), // 訂單金額
     ItemDesc: itemName, // 產品名稱
     Email: email, // 付款人電子信箱
-    ReturnURL: env.web_url + "/order/return", // 支付完成返回商店網址(post)
+    ReturnURL: env.web_url + "/returnNeweb?pay=1", // 支付完成返回商店網址(post)
     NotifyURL: env.firebase_functions, // 支付通知網址/每期授權結果通知
     ClientBackURL: env.web_url + "/home?pay=2" // 支付取消返回商店網址
   });
