@@ -12,6 +12,7 @@ var orderRouter = require('./routes/order');
 var memberRouter = require('./routes/member');
 var auth = require('./middleware/auth');
 
+var firebaseAdmin = require('./admin')
 var app = express();
 
 app.use(minifyHTML({
@@ -65,6 +66,7 @@ app.use("/returnNeweb", (req,res) =>{
   res.redirect("/?pay=" + req.query.pay)
 })
 
+app.use("/admin",firebaseAdmin);  //admin 安裝 (請放在這個位置)
 app.use("/*",((req, res, next) => {  //所有請求都會經過
   //處理session
   let cart = req.session.cart || [];

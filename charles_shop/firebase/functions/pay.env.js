@@ -11,6 +11,9 @@ const env = function(NODE_ENV, source){
         HashKey : "",//綠界
         HashIV : "",//綠界
         OperationMode : "Test",//綠界
+        adminlogin : "test7489", //firebase管理者識別用(類似密碼，無外流)
+        adminEmail : "test@gmail.com",//最高管理者的 email
+        firebase_api_key : "AIzaSyCqCrz7lO1HMwVSDNLwgDNBK17gDU9y9t0"
     }
     if(NODE_ENV !== "dev"){
         env = {
