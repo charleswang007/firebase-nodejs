@@ -15,12 +15,10 @@ const env = function(NODE_ENV, source){
         adminEmail : "test@gmail.com",//最高管理者的 email
         firebase_api_key : "AIzaSyCqCrz7lO1HMwVSDNLwgDNBK17gDU9y9t0"
     }
-    if(NODE_ENV !== "dev"){
-        env = {
-            action: "https://ccore.newebpay.com/MPG/mpg_gateway",
-            OperationMode: "Production",
-        }
-    }
+    if(NODE_ENV == "prod"){ //填寫正式環境的env
+        env = require('./env')(source);
+      }
+
 	return env
 }
 module.exports = env
